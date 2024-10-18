@@ -1,7 +1,6 @@
 const sdk = require('@defillama/sdk');
+const ADDRESSES = require('../helper/coreAssets.json')
 
-const ethereum_usdc = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48';
-const ethereum_wbtc = '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599';
 const ethereum_weeth = '0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee';
 const ethereum_weethk = '0x7223442cad8e9cA474fC40109ab981608F8c4273';
 const ethereum_weeths = '0x917ceE801a67f933F2e6b33fC0cD1ED2d5909D88';
@@ -21,7 +20,7 @@ const vaults = {
       "0xf06617fBECF1BdEa2D62079bdab9595f86801604"
     ],
     depositAsset: ethereum_lbtcv,
-    pricingToken: ethereum_wbtc,
+    pricingToken: ADDRESSES.ethereum.WBTC,
     chain: 'ethereum'
   },
   weETHs: {
@@ -78,7 +77,7 @@ const vaults = {
       "0xF11fbb660B9950FeCd38E13B446A28e8605535FC"
     ],
     depositAsset: ethereum_liquidUSD,
-    pricingToken: ethereum_usdc,
+    pricingToken: ADDRESSES.ethereum.USDC,
     chain: 'ethereum'
   },
   meth: {
@@ -98,7 +97,7 @@ const computePitchfxsTvl = async (api) => {
     abi: 'erc20:totalSupply',
   });
 
-  api.addToken(ethereum_pitchfxs, balance);
+  api.addToken(ADDRESSES.ethereum.FXS, balance);
 }
 
 function computeTvl(chain) {
@@ -131,7 +130,7 @@ function computeTvl(chain) {
 }
 
 module.exports = {
-  methodology: '',
+  methodology: 'TVL accounts for all assets deposited into our boosted vaults. It also includes the amount of FXS time-locked and minted as pitchFXS.',
   ethereum: {
     tvl: computeTvl('ethereum')
   },
